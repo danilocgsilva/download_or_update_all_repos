@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+urlbase="PATHTOTHEPHPFILE"
+
+for i in `curl $urlbase/listrepos.php`; do
+	echo ""
+	echo -- Download de $i
+
+	if [ -d $i ]; then
+		cd $i
+		git pull origin master
+		cd ..
+	else
+		git clone git@github.com:danilocgsilva/$i
+	fi
+
+	echo Download de $i finalizado
+done
