@@ -5,7 +5,7 @@ include('listrepos.confs.php');
 header('Content-type: text/plain; charset=utf-8');
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/user/repos');
+curl_setopt($ch, CURLOPT_URL, 'https://api.github.com/user/repos?per_page=10000');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_USERPWD, $authorizationstring);
 curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
