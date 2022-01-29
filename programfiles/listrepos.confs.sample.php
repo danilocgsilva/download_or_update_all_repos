@@ -1,0 +1,3 @@
+<?php
+
+$authorizationstring = "USERNAME:TOKEN";

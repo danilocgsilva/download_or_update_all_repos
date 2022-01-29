@@ -1,19 +1,41 @@
 #!/bin/bash
 
+if [ -z $1 ]; then
+	echo You need to provides the first argument to be the folder where you want to store all repos.
+	exit
+fi
 
-urlbase="PATHTOTHEPHPFILE"
+source vars
+
+COUNT=1
+
+cd $1
 
 for i in `curl $urlbase/listrepos.php`; do
-	echo ""
-	echo -- Download de $i
 
-	if [ -d $i ]; then
-		cd $i
-		git pull origin master
-		cd ..
+	if [ $COUNT = 1 ]; then
+		if [ $i = "error" ]; then
+			echo Error. Bye.
+			exit
+		fi
 	else
-		git clone git@github.com:danilocgsilva/$i
+		echo $i
+
+		echo ""
+		echo -- Downloading $i
+
+		if [ -d $i ]; then
+			cd $i
+			git pull origin master
+			cd ..
+		else
+			git clone git@github.com:$username/$i
+		fi
+
+		echo $i finished
+		echo $COUNT repositories processed.
 	fi
 
-	echo Download de $i finalizado
+	COUNT=$(($COUNT+1))
+
 done
